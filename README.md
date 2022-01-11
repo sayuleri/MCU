@@ -1,4 +1,7 @@
 ### Hi there 👋
+使用环境：
+    Keil C51
+    Proteus 8.9
 
 <!--
 **sayuleri/sayuleri** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
