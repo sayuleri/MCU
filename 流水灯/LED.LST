@@ -1,0 +1,99 @@
+C51 COMPILER V9.00   LED                                                                   01/11/2022 17:08:26 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN LED.OBJ
+COMPILER INVOKED BY: D:\Download\APP\Keil\C51\BIN\C51.EXE LED.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "reg52.h"
+   2          #include "intrins.h" //左右移位
+   3          
+   4          typedef unsigned int uint;
+   5          
+   6          #define LED P0
+   7          uint i;
+   8          /*************************************************
+   9                                                  延时函数
+  10          *************************************************/
+  11          void delay(unsigned char c){//延时c ms
+  12   1              unsigned char a=2, b=142;
+  13   1              for(c; c>0; c--)
+  14   1                      for(; b>0; b--)
+  15   1                              for(; a>0; a--);
+  16   1      }
+  17          /*************************************************
+  18                                                   主函数
+  19          --------------------------------------------------
+  20          功能：LED流水灯依次从右向左亮起，再从左向右亮起
+  21          *************************************************/       
+  22          void main(){
+  23   1              //LED = 0x7f;//0111 1111
+  24   1              //delay(300);
+  25   1              while(1){
+  26   2                      for(i=0; i<=7; i++){
+  27   3                              LED = _cror_(0x7f,i);//右移位
+  28   3                              delay(50000);   
+  29   3                      }
+  30   2                      for(i=0; i<=7; i++){
+  31   3                              LED = _crol_(0xfe,i);//左移位
+  32   3                              delay(50000);
+  33   3                      }
+  34   2              }       
+  35   1      }
+  36          
+  37          /*************************************************
+  38                                                  测试
+  39          **************************************************/
+  40          /*
+  41          void main(){
+  42                  unsigned int cnt = 0;
+  43                  while(1){
+  44                          //LED = ~(0x01<<cnt);
+  45                          //for(i=0; i<30000; i++);
+  46          
+  47                          //测试
+  48                          LED = 0x7f;//0111 1111
+  49                          delay(300);
+  50                          LED = 0xbf;//1011 1111
+  51                          delay(300);
+  52                          LED = 0xbf >> 1;
+  53                          delay(300);
+  54          
+  55                          for(cnt=1;cnt<=5;cnt++){
+C51 COMPILER V9.00   LED                                                                   01/11/2022 17:08:26 PAGE 2   
+
+  56                                  LED = _cror_(0xdf,cnt); //_cror_(<被移位的数>,<移动的位数>)
+  57                                  delay(300);
+  58                          }
+  59                  }
+  60          }
+  61                          
+  62                     /*移位函数的错误用法
+  63          
+  64                          
+  65                          LED = _cror_(LED,1);
+  66                          delay(300);
+  67                          LED = _cror_(LED,1);
+  68                          delay(300);
+  69                          LED = _cror_(LED,1);
+  70                          delay(300);
+  71                          LED = _cror_(LED,1);
+  72                          delay(300);
+  73                          */
+  74                   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    116    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
